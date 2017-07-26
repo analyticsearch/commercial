@@ -1,22 +1,3 @@
-﻿<#	
-	===========================================================================
-	 Created on:   	8/31/2014 3:11 PM
-	 Created by:   	Adam Bertram
-	 Filename:     	MyTwitter.psm1
-	-------------------------------------------------------------------------
-	 Module Name: MyTwitter
-	 Description: This Twitter module was built to give a Twitter user the ability
-		to send tweets from his account and to DM other users.  At this time this
-		is the only functionality available.
-
-		Before importing this module, you must create your own Twitter application
-		on apps.twitter.com and generate an access token under the API keys section
-		of the application.  Once you do so, I recommend copying/pasting your
-		API key, API secret, access token and access token secret as default
-		parameters under the Get-OAuthAuthorization function.
-	===========================================================================
-#>
-
 function Get-OAuthAuthorization {
 	<#
 	.SYNOPSIS
