@@ -22,7 +22,7 @@ net use q: \\share_name
 wmic logicaldisk get name
 net use q: /delete
 
-7za.exe a -tzip ipt.zip C:\support\
+7za.exe a -tzip analytic.zip C:\support\
 
 reg query "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings" /v AutoConfigURL
 
