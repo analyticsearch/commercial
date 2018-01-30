@@ -43,13 +43,13 @@ function Get-OAuthAuthorization {
 		[Parameter(Mandatory, ParameterSetName = 'DM')]
 		[string]$Username,
 		[Parameter()]
-		[string]$ApiKey = 'Qis9WV6JJARhsGyIudNDbhgCw',
+		[string]$ApiKey = '<value>',
 		[Parameter()]
-		[string]$ApiSecret = 'voytzBkwhNv9aROSxDx8wRZbSkTfUNO0dTt0Su57yD9TeskXJW',
+		[string]$ApiSecret = '<value>',
 		[Parameter()]
-		[string]$AccessToken = '837522572988174338-2CTV7F9rz4Pl7YVohCdXoRzDeegzDTM',
+		[string]$AccessToken = '<value>',
 		[Parameter()]
-		[string]$AccessTokenSecret = 'EUoXHUXvA6CnhTQcB8Gc6rVtLGRRCHGaB7McuxzFtGTvu'
+		[string]$AccessTokenSecret = '<value>'
 	)
 	
 	begin {
