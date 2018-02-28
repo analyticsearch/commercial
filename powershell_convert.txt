@@ -1,0 +1,5 @@
+$file = "C:\input.txt"
+$data = Get-Content $file
+[System.Text.Encoding]::ASCII.GetString([System.Convert]::FromBase64String($data)) | Out-File -Encoding "ASCII" out.txt
+
+[System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("YmxhaGJsYWg=")) | Out-File -Encoding "ASCII" out.txt
