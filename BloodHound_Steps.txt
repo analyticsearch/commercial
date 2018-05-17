@@ -3,8 +3,8 @@
 03. Navigate to extracted folder in the Powershell: cd $Env:userprofile\Desktop\bloodhound\
 04. Execute the following commands in Powershell (Sample screenshot is in the extracted zip file):
 	a. Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-	b. Unblock-File -Path ".\BloodHound.ps1"
-	c. Import-Module .\BloodHound.ps1
+	b. Unblock-File -Path ".\BloodHound.ps1"	(or)	Unblock-File -Path ".\SharpHound.ps1"
+	c. Import-Module .\BloodHound.ps1	(or)	Import-Module .\SharpHound.ps1
 	d. Invoke-BloodHound
 05. New ".csv" files would be generated as output.
 06. ZIP the folder "bloodhound" present in the desktop. Create the ZIP file with name other than "bloodhound.zip".
@@ -13,3 +13,5 @@
 (or)
 
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -force;Unblock-File -Path ".\BloodHound.ps1";Import-Module .\BloodHound.ps1;Invoke-BloodHound
+(or)
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -force;Unblock-File -Path ".\SharpHound.ps1";Import-Module .\SharpHound.ps1;Invoke-BloodHound
