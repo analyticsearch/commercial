@@ -77,8 +77,8 @@ goddi-windows-amd64.exe -username=<username> -password="<password>" -domain="<do
 
 ----------------------------------------------------------------------------------------------------------------------------------------
 
-for($i=1;$i -lt 255;$i++){$ip="10.10.101."+$i;echo "" $ip "";$shares = net view \\$ip /all | select -Skip 7 | ?{$_ -match 'disk*'} | %{$_ -match '^(.+?)\s+Disk*'|out-null;$matches[1]};$shares;echo "-----------------------------------"}
+for($i=1;$i -lt 255;$i++){$ip="192.168.1."+$i;echo "" $ip "";$shares = net view \\$ip /all | select -Skip 7 | ?{$_ -match 'disk*'} | %{$_ -match '^(.+?)\s+Disk*'|out-null;$matches[1]};$shares;echo "-----------------------------------"}
 
-for($i=1;$i -lt 255;$i++){Write-Host ("[*] 10.10.101." + $i); Get-WmiObject -class win32_share -ComputerName ("10.10.101." + $i)}
+for($i=1;$i -lt 255;$i++){Write-Host ("[*] 192.168.1." + $i); Get-WmiObject -class win32_share -ComputerName ("192.168.1." + $i)}
 
 ----------------------------------------------------------------------------------------------------------------------------------------
