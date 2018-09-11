@@ -109,3 +109,10 @@ wmic path win32_process call create calc
 
 ----------------------------------------------------------------------------------------------------------------------------------------
 
+To Check AMSI Log:
+
+Get-MpThreatDetection | Sort InitialDetectionTime -Descending | select -First 1
+Get-WinEvent 'Microsoft-Windows-Windows Defender/Operational' | Where-Object Id -eq 1116 | Format-List
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
