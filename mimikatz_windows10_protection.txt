@@ -56,3 +56,8 @@ Disable Windows Defender Credential Guard
 	Accept the prompt to disable Windows Defender Credential Guard.
 	Alternatively, you can disable the virtualization-based security features to turn off Windows Defender Credential Guard.
 -------------------------------------------------------------------------------------------------------------------------------------------------
+Restricted Admin Mode:
+
+reg add HKLM\SYSTEM\CurrentControlSet\Control\Lsa /v DisableRestrictedAdmin /t REG_DWORD /d 0
+reg add HKLM\SYSTEM\CurrentControlSet\Control\Lsa /v DisableRestrictedAdminOutboundCreds /t REG_DWORD /d 1
+-------------------------------------------------------------------------------------------------------------------------------------------------
