@@ -1,0 +1,58 @@
+WDigest Protection:
+
+By default in Windows 10:
+There will be no "UseLogonCredential" registry
+(or)
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest\UseLogonCredential 0
+
+To dump credentials in Windows 10:
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest\UseLogonCredential 1
+-------------------------------------------------------------------------------------------------------------------------------------------------
+LSA protection:
+
+To enable LSA protection on a single computer:
+    Open the Registry Editor (RegEdit.exe), and navigate to the registry key that is located at: 
+    HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa.
+    Set the value of the registry key to: "RunAsPPL"=dword:00000001.
+    (or)
+	  reg add HKLM\SYSTEM\CurrentControlSet\Control\Lsa /v RunAsPPL /t REG_DWORD /d 1
+    Restart the computer.
+
+To disable LSA protection
+    Open the Registry Editor (RegEdit.exe), and navigate to the registry key that is located at: 
+    HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa.
+    Delete the following value from the registry key: "RunAsPPL"=dword:00000001.
+    Use the Local Security Authority (LSA) Protected Process Opt-out tool to delete the UEFI variable if the device is using Secure Boot.
+-------------------------------------------------------------------------------------------------------------------------------------------------
+Credential Guard:
+	
+Enable virtualization-based security and Windows Defender Credential Guard
+    Open Registry Editor.
+    Enable virtualization-based security:
+        Go to HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\DeviceGuard.
+        Add a new DWORD value named EnableVirtualizationBasedSecurity. Set the value of this registry setting to 1 to enable virtualization-based security and set it to 0 to disable it.
+        Add a new DWORD value named RequirePlatformSecurityFeatures. Set the value of this registry setting to 1 to use Secure Boot only or set it to 3 to use Secure Boot and DMA protection.
+    Enable Windows Defender Credential Guard:
+        Go to HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\LSA.
+        Add a new DWORD value named LsaCfgFlags. Set the value of this registry setting to 1 to enable Windows Defender Credential Guard with UEFI lock, set it to 2 to enable Windows Defender Credential Guard without lock, and set it to 0 to disable it.
+    Close Registry Editor.
+
+Disable Windows Defender Credential Guard
+	If you used Group Policy, disable the Group Policy setting that you used to enable Windows Defender Credential Guard (Computer Configuration -> Administrative Templates -> System -> Device Guard -> Turn on Virtualization Based Security).
+	Delete the following registry settings:
+		HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\LSA\LsaCfgFlags
+		HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\DeviceGuard\EnableVirtualizationBasedSecurity
+		HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\DeviceGuard\RequirePlatformSecurityFeatures
+	Delete the Windows Defender Credential Guard EFI variables by using bcdedit. From an elevated command prompt, type the following commands:
+		mountvol X: /s
+		copy %WINDIR%\System32\SecConfig.efi X:\EFI\Microsoft\Boot\SecConfig.efi /Y
+		bcdedit /create {0cb3b571-2f2e-4343-a879-d86a476d7215} /d "DebugTool" /application osloader
+		bcdedit /set {0cb3b571-2f2e-4343-a879-d86a476d7215} path "\EFI\Microsoft\Boot\SecConfig.efi"
+		bcdedit /set {bootmgr} bootsequence {0cb3b571-2f2e-4343-a879-d86a476d7215}
+		bcdedit /set {0cb3b571-2f2e-4343-a879-d86a476d7215} loadoptions DISABLE-LSA-ISO
+		bcdedit /set {0cb3b571-2f2e-4343-a879-d86a476d7215} device partition=X:
+		mountvol X: /d
+	Restart the PC.
+	Accept the prompt to disable Windows Defender Credential Guard.
+	Alternatively, you can disable the virtualization-based security features to turn off Windows Defender Credential Guard.
+-------------------------------------------------------------------------------------------------------------------------------------------------
