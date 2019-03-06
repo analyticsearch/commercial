@@ -1,0 +1,4 @@
+Dim objShell
+Set objShell = CreateObject("WScript.Shell")
+Return = objShell.Run("""C:\Program Files\Notepad++\notepad++.exe""", 0)
+Set objShell = Nothing
