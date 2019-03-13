@@ -140,4 +140,27 @@ Get-WinEvent 'Microsoft-Windows-Windows Defender/Operational' | Where-Object Id 
 
 ----------------------------------------------------------------------------------------------------------------------------------------
 
+Enable-PSRemoting –force
+Set-Service WinRM -StartMode Automatic
+Set-Item WSMan:localhost\client\trustedhosts -value *
+
+Get-WmiObject -Class win32_service | Where-Object {$_.name -like "WinRM"}
+Get-Item WSMan:\localhost\Client\TrustedHosts
+
+Invoke-Command –ComputerName <FQDN> -Credentials domain\username -ScriptBlock {Hostname}
+Invoke-Command –ComputerName <FQDN> -Credentials domain\username -FilePath C:\Script.ps1
+
+Get-ADComputer -Filter *  -properties name | select @{Name="computername";Expression={$_."name"}} | Invoke-Command -ScriptBlock {hostname}
+
+Enter-PsSession –ComputerName <FQDN> -Credentials domain\username
+
+New-PSSession –ComputerName <FQDN> -Credentials domain\username
+Get-PSSession
+Enter-PsSession –id 1
+Invoke-Command -Session (Get-PSSession) -ScriptBlock {Hostname}
+
+New-PSDrive -PSProvider ActiveDirectory -Name RemoteADS -Root "" -Server <FQDN> -credential domain\username;cd RemoteADS:;Get-ADComputer -Filter * -Properties name  | select @{Name="ComputerName";Expression={$_."name"}} | New-PSSession
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
 
