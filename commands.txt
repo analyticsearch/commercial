@@ -147,14 +147,14 @@ Set-Item WSMan:localhost\client\trustedhosts -value *
 Get-WmiObject -Class win32_service | Where-Object {$_.name -like "WinRM"}
 Get-Item WSMan:\localhost\Client\TrustedHosts
 
-Invoke-Command –ComputerName <FQDN> -Credentials domain\username -ScriptBlock {Hostname}
-Invoke-Command –ComputerName <FQDN> -Credentials domain\username -FilePath C:\Script.ps1
+Invoke-Command –Comp <FQDN> -Cred domain\username -ScriptBlock {Hostname}
+Invoke-Command –Comp <FQDN> -Cred domain\username -FilePath C:\Script.ps1
 
 Get-ADComputer -Filter *  -properties name | select @{Name="computername";Expression={$_."name"}} | Invoke-Command -ScriptBlock {hostname}
 
-Enter-PsSession –ComputerName <FQDN> -Credentials domain\username
+Enter-PsSession –Comp <FQDN> -Cred domain\username
 
-New-PSSession –ComputerName <FQDN> -Credentials domain\username
+New-PSSession –Comp <FQDN> -Cred domain\username
 Get-PSSession
 Enter-PsSession –id 1
 Invoke-Command -Session (Get-PSSession) -ScriptBlock {Hostname}
