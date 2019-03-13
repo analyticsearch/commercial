@@ -158,6 +158,7 @@ New-PSSession –Comp <FQDN> -Cred domain\username
 Get-PSSession
 Enter-PsSession –id 1
 Invoke-Command -Session (Get-PSSession) -ScriptBlock {Hostname}
+Get-PSSession | Disconnect-PSSession
 
 New-PSDrive -PSProvider ActiveDirectory -Name RemoteADS -Root "" -Server <FQDN> -credential domain\username;cd RemoteADS:;Get-ADComputer -Filter * -Properties name  | select @{Name="ComputerName";Expression={$_."name"}} | New-PSSession
 
