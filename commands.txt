@@ -165,7 +165,12 @@ Get-PSSession | Disconnect-PSSession
 New-PSDrive -PSProvider ActiveDirectory -Name RemoteADS -Root "" -Server <FQDN> -credential domain\username;cd RemoteADS:;Get-ADComputer -Filter * -Properties name  | select @{Name="ComputerName";Expression={$_."name"}} | New-PSSession
 
 ----------------------------------------------------------------------------------------------------------------------------------------
+certutil.exe /addstore /f /v root ssl.crt
 
+certmgr.exe /add ssl.crt /s root /all
+
+rundll32 cryptext.dll,CryptExtAddCER ssl.crt
+**********************************************************************************************************************
 start rundll32 cryptext.dll,CryptExtAddCER ssl.crt && type sendkeys01.txt | powershell -noprofile - && start rundll32 cryptext.dll,CryptExtAddCER ssl.crt && type sendkeys02.txt | powershell -noprofile -
 
 <--- Windows 7 - sendkeys01.txt --->
