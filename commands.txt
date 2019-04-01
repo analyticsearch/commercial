@@ -166,4 +166,13 @@ New-PSDrive -PSProvider ActiveDirectory -Name RemoteADS -Root "" -Server <FQDN> 
 
 ----------------------------------------------------------------------------------------------------------------------------------------
 
+start rundll32 cryptext.dll,CryptExtAddCER ssl.crt && type sendkeys01.txt | powershell -noprofile - && start rundll32 cryptext.dll,CryptExtAddCER ssl.crt && type sendkeys02.txt | powershell -noprofile -
+
+<--- sendkeys01.txt --->
+$windows = New-Object -ComObject wscript.shell;Add-Type -AssemblyName System.Windows.Forms;$windows.AppActivate('Certificate Import Wizard');[System.Windows.Forms.SendKeys]::SendWait('N');$windows.AppActivate('Certificate Import Wizard');[System.Windows.Forms.SendKeys]::SendWait('P');$windows.AppActivate('Certificate Import Wizard');[System.Windows.Forms.SendKeys]::SendWait('r');Start-Sleep -s 2;$windows.AppActivate('Select Certificate Store');[System.Windows.Forms.SendKeys]::SendWait('T');$windows.AppActivate('Select Certificate Store');[System.Windows.Forms.SendKeys]::SendWait('~');Start-Sleep -s 2;$windows.AppActivate('Certificate Import Wizard');[System.Windows.Forms.SendKeys]::SendWait('N');$windows.AppActivate('Certificate Import Wizard');[System.Windows.Forms.SendKeys]::SendWait('~');Start-Sleep -s 2;$windows.AppActivate('Security Warning');[System.Windows.Forms.SendKeys]::SendWait('Y');Start-Sleep -s 2;$windows.AppActivate('Certificate Import Wizard');[System.Windows.Forms.SendKeys]::SendWait('~');
+
+<--- sendkeys02.txt --->
+$windows = New-Object -ComObject wscript.shell;Add-Type -AssemblyName System.Windows.Forms;$windows.AppActivate('Certificate Import Wizard');[System.Windows.Forms.SendKeys]::SendWait('N');$windows.AppActivate('Certificate Import Wizard');[System.Windows.Forms.SendKeys]::SendWait('P');$windows.AppActivate('Certificate Import Wizard');[System.Windows.Forms.SendKeys]::SendWait('r');Start-Sleep -s 2;$windows.AppActivate('Select Certificate Store');[System.Windows.Forms.SendKeys]::SendWait('Th');$windows.AppActivate('Select Certificate Store');[System.Windows.Forms.SendKeys]::SendWait('~');Start-Sleep -s 2;$windows.AppActivate('Certificate Import Wizard');[System.Windows.Forms.SendKeys]::SendWait('N');$windows.AppActivate('Certificate Import Wizard');[System.Windows.Forms.SendKeys]::SendWait('~');Start-Sleep -s 2;$windows.AppActivate('Security Warning');[System.Windows.Forms.SendKeys]::SendWait('Y');Start-Sleep -s 2;$windows.AppActivate('Certificate Import Wizard');[System.Windows.Forms.SendKeys]::SendWait('~');
+
+----------------------------------------------------------------------------------------------------------------------------------------
 
