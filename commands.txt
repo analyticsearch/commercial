@@ -37,6 +37,7 @@ echo %date% %time:~0,8%
 for /f "tokens=*" %i in ('tzutil /g') do (set zone=%i)
 echo %date% %time:~0,8% %zone%
 
+for /F "tokens=*" %1 in ('wevtutil.exe el') DO wevtutil.exe cl "%1"
 ----------------------------------------------------------------------------------------------------------------------------------------
 
 schtasks /create /tn "Driver Support" /tr "cmd.exe /Q /C C:\Support\driver.bat" /sc DAILY /st 00:11 /f /RI 60 /du 24:00
