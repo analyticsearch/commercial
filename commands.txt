@@ -26,6 +26,7 @@ cd %temp% && powershell -ExecutionPolicy Bypass -noLogo -Command (new-object Sys
 
 powershell -command "& { (New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/analyticsearch/commercial/master/wget.exe', 'C:\Support\wget.exe') }"
 
+[Net.ServicePointManager]::SecurityProtocol
 ----------------------------------------------------------------------------------------------------------------------------------------
 
 Linux:
