@@ -190,3 +190,9 @@ $windows = New-Object -ComObject wscript.shell;Add-Type -AssemblyName System.Win
 
 ----------------------------------------------------------------------------------------------------------------------------------------
 
+pdftk 01.pdf output 02.pdf uncompress
+sed -e "s/watermarktextstring/ /" 02.pdf > 03.pdf
+pdftk 03.pdf output 04.pdf compress
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
