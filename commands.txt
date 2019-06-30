@@ -196,6 +196,10 @@ pdftk 03.pdf output 04.pdf compress
 
 ----------------------------------------------------------------------------------------------------------------------------------------
 
+sed -i -e 's/192.168.6.135/192.168.3.136/g' file.txt
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
 REG ADD "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings" /v SecureProtocols /t REG_DWORD /d 2688 /f
 REG ADD "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings\WinHttp" /v DefaultSecureProtocols /t REG_DWORD /d 2688 /f
 REG ADD "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Internet Settings\WinHttp" /v DefaultSecureProtocols /t REG_DWORD /d 2688 /f
