@@ -4,7 +4,7 @@ yum update
 ssh-keygen
 
 yum install postgresql
-postgresql-setup --initdb
+postgresql-setup initdb
 systemctl start postgresql
 systemctl enable postgresql
 sudo -i -u postgres
