@@ -72,6 +72,8 @@ net use q: /delete
 
 7za.exe a -tzip analytic.zip C:\support\
 
+7z a -v50M <new_filename_to_create>.zip <Path_to_file_or_folder_to_compress_by_splitting>
+
 reg query "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings" /v AutoConfigURL
 
 run post/windows/manage/migrate
