@@ -97,7 +97,7 @@ C:\Users\user01\AppData\Local\Google\Chrome\User Data\Default\<ALL FILES except 
 
 Machine B:
 
-dpapi::create /guid:{9c08e1e4-8719-4479-b104-875d3a02e6e7} /key:<KEY FROM dpapi::masterkey> /password:<NEW PASSWORD> /protected
+dpapi::create /guid:{9c08e1e4-8719-4479-b104-875d3a02e6e7} /key:<KEY FROM dpapi::masterkey> /password:<CURRENT USER02 PASSWORD> /protected
 
 Place the newly generated file to %appdata%\Microsoft\Protect\<SID FOLDER>\
 
