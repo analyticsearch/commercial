@@ -216,3 +216,13 @@ REG ADD "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protoc
 REG ADD "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Client" /v Enabled /t REG_DWORD /d 1 /f
 
 ----------------------------------------------------------------------------------------------------------------------------------------
+
+copy file.exe file.pdf
+Compress-Archive -Path .\file.pdf -DestinationPath .\file.zip
+[IO.File]::WriteAllBytes(".\file.txt",[char[]][Convert]::ToBase64String([IO.File]::ReadAllBytes(".\file.zip")))
+[IO.File]::WriteAllBytes(".\file.zip",[Convert]::FromBase64String([char[]][IO.File]::ReadAllBytes(".\file.txt")))
+Expand-Archive -Path .\file.zip -DestinationPath .\
+copy file.pdf file.exe
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
