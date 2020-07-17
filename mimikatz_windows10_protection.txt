@@ -1,3 +1,34 @@
+In Windows 10 (Required administrator access):
+Control Panel -> Program and Features -> Turn Windows Features on or off
+
+Check all the boxes:
+Containers
+Guarded Host
+Hyper-V
+Virtual Machine Platform
+Windows Hypervisor Platform
+Windows Projected System
+Windows Sandbox
+
+CMD:
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard" /v "EnableVirtualizationBasedSecurity" /t REG_DWORD /d 1 /f
+reg add HKLM\SYSTEM\CurrentControlSet\Control\Lsa /v LsaCfgFlags /t REG_DWORD /d 1
+reg add HKLM\SYSTEM\CurrentControlSet\Control\Lsa /v RunAsPPL /t REG_DWORD /d 1
+
+Restart the machine
+
+To verify the status:
+Run 'msinfo32' and scroll down to check the status of Credential Gaurd
+get-mpcomputerstatus
+Get-CimInstance -ClassName Win32_DeviceGuard -Namespace root\Microsoft\Windows\DeviceGuard
+reg query "hklm\system\currentcontrolset\control\securityproviders\wdigest"
+reg query "hklm\system\currentcontrolset\control\lsa"
+reg query "hklm\system\currentcontrolset\control\deviceguard"
+reg query "hklm\software\policies\microsoft\windows defender"
+
+Get-MpThreatDetection | Sort InitialDetectionTime -Descending
+Get-WinEvent 'Microsoft-Windows-Windows Defender/Operational' | Where-Object Id -eq 1116 | Format-List
+-------------------------------------------------------------------------------------------------------------------------------------------------
 WDigest Protection:
 
 By default in Windows 10:
@@ -69,36 +100,5 @@ Restricted Admin Mode:
 
 reg add HKLM\SYSTEM\CurrentControlSet\Control\Lsa /v DisableRestrictedAdmin /t REG_DWORD /d 0
 reg add HKLM\SYSTEM\CurrentControlSet\Control\Lsa /v DisableRestrictedAdminOutboundCreds /t REG_DWORD /d 1
--------------------------------------------------------------------------------------------------------------------------------------------------
-In Windows 10:
-Control Panel -> Program and Features -> Turn Windows Features on or off
-
-Check all the boxes:
-Containers
-Guarded Host
-Hyper-V
-Virtual Machine Platform
-Windows Hypervisor Platform
-Windows Projected System
-Windows Sandbox
-
-CMD as Admin:
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard" /v "EnableVirtualizationBasedSecurity" /t REG_DWORD /d 1 /f
-reg add HKLM\SYSTEM\CurrentControlSet\Control\Lsa /v LsaCfgFlags /t REG_DWORD /d 1
-reg add HKLM\SYSTEM\CurrentControlSet\Control\Lsa /v RunAsPPL /t REG_DWORD /d 1
-
-Restart the machine
-
-To verify the status:
-Run 'msinfo32' and scroll down to check the status of Credential Gaurd
-get-mpcomputerstatus
-Get-CimInstance -ClassName Win32_DeviceGuard -Namespace root\Microsoft\Windows\DeviceGuard
-reg query "hklm\system\currentcontrolset\control\securityproviders\wdigest"
-reg query "hklm\system\currentcontrolset\control\lsa"
-reg query "hklm\system\currentcontrolset\control\deviceguard"
-reg query "hklm\software\policies\microsoft\windows defender"
-
-Get-MpThreatDetection | Sort InitialDetectionTime -Descending
-Get-WinEvent 'Microsoft-Windows-Windows Defender/Operational' | Where-Object Id -eq 1116 | Format-List
 -------------------------------------------------------------------------------------------------------------------------------------------------
 
