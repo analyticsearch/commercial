@@ -15,7 +15,7 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard" /v "EnableVirtualiza
 reg add HKLM\SYSTEM\CurrentControlSet\Control\Lsa /v LsaCfgFlags /t REG_DWORD /d 1
 reg add HKLM\SYSTEM\CurrentControlSet\Control\Lsa /v RunAsPPL /t REG_DWORD /d 1
 
-Restart the machine
+Restart the computer.
 
 To verify the status:
 Run 'msinfo32' and scroll down to check the status of Credential Gaurd
@@ -28,6 +28,11 @@ reg query "hklm\software\policies\microsoft\windows defender"
 
 Get-MpThreatDetection | Sort InitialDetectionTime -Descending
 Get-WinEvent 'Microsoft-Windows-Windows Defender/Operational' | Where-Object Id -eq 1116 | Format-List
+-------------------------------------------------------------------------------------------------------------------------------------------------
+Disable Windows Defender:
+reg add "hklm\software\policies\microsoft\windows defender" /v "DisableAntiSpyware" /t REG_DWORD /d 1 /f
+
+Restart the computer.
 -------------------------------------------------------------------------------------------------------------------------------------------------
 WDigest Protection:
 
