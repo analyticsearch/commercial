@@ -15,7 +15,7 @@ To enable LSA protection on a single computer:
     HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa.
     Set the value of the registry key to: "RunAsPPL"=dword:00000001.
     (or)
-	  reg add HKLM\SYSTEM\CurrentControlSet\Control\Lsa /v RunAsPPL /t REG_DWORD /d 1
+    reg add HKLM\SYSTEM\CurrentControlSet\Control\Lsa /v RunAsPPL /t REG_DWORD /d 1
     Restart the computer.
 
 To disable LSA protection
@@ -35,6 +35,14 @@ Enable virtualization-based security and Windows Defender Credential Guard
     Enable Windows Defender Credential Guard:
         Go to HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\LSA.
         Add a new DWORD value named LsaCfgFlags. Set the value of this registry setting to 1 to enable Windows Defender Credential Guard with UEFI lock, set it to 2 to enable Windows Defender Credential Guard without lock, and set it to 0 to disable it.
+    (or)
+    	reg add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard" /v "EnableVirtualizationBasedSecurity" /t REG_DWORD /d 1 /f
+	reg add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard" /v "RequirePlatformSecurityFeatures" /t REG_DWORD /d 3 /f
+	reg add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard" /v "Locked" /t REG_DWORD /d 0 /f
+	reg add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity" /v "Enabled" /t REG_DWORD /d 1 /f
+	reg add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity" /v "Locked" /t REG_DWORD /d 0 /f
+	reg add HKLM\SYSTEM\CurrentControlSet\Control\Lsa /v LsaCfgFlags /t REG_DWORD /d 1
+	reg add HKLM\SYSTEM\CurrentControlSet\Control\Lsa /v LsaCfgFlagsDefault /t REG_DWORD /d 1
     Close Registry Editor.
 
 Disable Windows Defender Credential Guard
@@ -62,3 +70,35 @@ Restricted Admin Mode:
 reg add HKLM\SYSTEM\CurrentControlSet\Control\Lsa /v DisableRestrictedAdmin /t REG_DWORD /d 0
 reg add HKLM\SYSTEM\CurrentControlSet\Control\Lsa /v DisableRestrictedAdminOutboundCreds /t REG_DWORD /d 1
 -------------------------------------------------------------------------------------------------------------------------------------------------
+In Windows 10:
+Control Panel -> Program and Features -> Turn Windows Features on or off
+
+Check all the boxes:
+Containers
+Guarded Host
+Hyper-V
+Virtual Machine Platform
+Windows Hypervisor Platform
+Windows Projected System
+Windows Sandbox
+
+CMD as Admin:
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard" /v "EnableVirtualizationBasedSecurity" /t REG_DWORD /d 1 /f
+reg add HKLM\SYSTEM\CurrentControlSet\Control\Lsa /v LsaCfgFlags /t REG_DWORD /d 1
+reg add HKLM\SYSTEM\CurrentControlSet\Control\Lsa /v RunAsPPL /t REG_DWORD /d 1
+
+Restart the machine
+
+To verify the status:
+Run 'msinfo32' and scroll down to check the status of Credential Gaurd
+get-mpcomputerstatus
+Get-CimInstance -ClassName Win32_DeviceGuard -Namespace root\Microsoft\Windows\DeviceGuard
+reg query "hklm\system\currentcontrolset\control\securityproviders\wdigest"
+reg query "hklm\system\currentcontrolset\control\lsa"
+reg query "hklm\system\currentcontrolset\control\deviceguard"
+reg query "hklm\software\policies\microsoft\windows defender"
+
+Get-MpThreatDetection | Sort InitialDetectionTime -Descending
+Get-WinEvent 'Microsoft-Windows-Windows Defender/Operational' | Where-Object Id -eq 1116 | Format-List
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
