@@ -1,0 +1,17 @@
+Ref URL: https://blog.zsec.uk/staticnmap/
+
+cd /tmp
+wget https://nmap.org/dist/nmap-7.92.tar.bz2
+bzip2 -cd nmap-7.92.tar.bz2 | tar xvf -
+cd nmap-7.92
+
+export CFLAGS="-march=core2 -O2 -fomit-frame-pointer -pipe -fPIC"
+export CXXFLAGS="-march=core2 -O2 -fomit-frame-pointer -pipe -fPIC"
+
+./configure --without-subversion --without-liblua --without-zenmap --with-pcre=/usr --with-libpcap=included --with-libdnet=included --without-ndiff --without-nmap-update --without-ncat --without-liblua --without-nping --without-openssl
+
+make -j4 static
+
+make
+
+ldd nmap | cut -d '(' -f1
