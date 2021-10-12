@@ -15,3 +15,5 @@ make -j4 static
 make
 
 ldd nmap | cut -d '(' -f1
+
+NMAPDIR=/usr/share/nmap nmap -h
