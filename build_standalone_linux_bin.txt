@@ -1,4 +1,6 @@
-Ref URL: https://blog.zsec.uk/staticnmap/
+Ref URLs:
+https://blog.zsec.uk/staticnmap/
+https://github.com/andrew-d/static-binaries
 
 cd /tmp
 wget https://nmap.org/dist/nmap-7.92.tar.bz2
